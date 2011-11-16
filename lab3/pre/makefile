@@ -1,10 +1,12 @@
 
 
-all: complines
+all: bcmp
 
-complines: complines.o
-	gcc  complines.o -o complines
+bcmp: bcmp.o
+	gcc  bcmp.o -o bcmp
 
-complines.o: complines.c
-	gcc -c complines.c
+bcmp.o: bcmp.c
+	gcc -c bcmp.c
 
+clean:
+	rm *.o

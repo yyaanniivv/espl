@@ -8,25 +8,27 @@ int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
     f1 = fopen(argv[1],"r"); 
     f2 = fopen(argv[2],"r");
     int i=0;
-    if (f1==NULL && f2==NULL)
+    if ((f1!=NULL || f2!=NULL)  && argc==3)
     {
-      char  x[1], y[1];
-      while (true)//end of file!?!
+      char  x='a', y='a'; //mini buffers
+      //int i=0, j=0;
+      //while (f1 !=EOF)
+      
+      while (i<710) //end of file!?!
       {
-	//COMPARE THE BYTE !!
-	//if  (x[1]!=y[1])
-	//    {
-	//      printf("byte %d -%d +%d",i x[1], y[1]);
-	//byte 33 -174 +230
-	//      
-	//    }
+	fread(&x, 1, 1,f1);
+	fread(&y, 1, 1,f2);
+	if (x!=y)
+	      printf("byte %d -%d +%d\n",i, x, y);  
+	i++;
+
       }
       
     fclose(f1) ;
     fclose(f2) ;  
     }
     else {
-      printf("error loading files via args"); // %s , %s argv[1], argv[2] 
-    }
+      printf("error loading files via args\nargc=  %d \n", argc); // %s , %s argv[1], argv[2] 
+  }
     return 0;
 }
