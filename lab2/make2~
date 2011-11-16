@@ -1,0 +1,11 @@
+objects= canalyze.o namelist.o
+
+all: canalyze
+
+canalyze: $(objects)
+	gcc -o canalyze $(objects)
+
+canalyze.o:
+
+namelist.o:
+

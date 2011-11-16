@@ -1,0 +1,9 @@
+ 
+all: testnl
+
+testnl: testnl.o namelist.o
+
+testnl.o: testnl.c namelist.h
+gcc -c testnl.c
+
+namelist.o: namelist.c namelist.h	
