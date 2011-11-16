@@ -14,12 +14,15 @@ int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
       //int i=0, j=0;
       //while (f1 !=EOF)
       
-      while (i<10) //end of file!?!
+      while (!(feof(f1)) | !(feof(f2))) //end of file!?! 
       {
 	fread(&x, 1, 1,f1);
 	fread(&y, 1, 1,f2);
-	if (x!=y)
-	      printf("byte %d -%d +%d\n",i, x, y);  
+	if ((x!=y) &&  (!(feof(f1)) | !(feof(f2))))
+	{      
+	  printf("byte %d -%d +%d\n",i, x, y);
+	  break;
+	}
 	i++;
 
       }
