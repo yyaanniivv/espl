@@ -5,8 +5,7 @@
 #include "namelist.h"
 
 void checkTxt(namelist nl, char *filename);
-
-
+int compareNameStrings(const void *a, const void *b);
 //canalyze a.txt b.txt
 int main(int argc, char **argv ) 
 {
@@ -54,16 +53,33 @@ int main(int argc, char **argv )
     }
     
     int k; //not sorted yet
-    for (k=0;k<nl->size;k++)
+    qsort(nl->names , nl->size, sizeof(nl->names[0]), compareNameStrings); //sorting via compareNameStrings.
+    printf("sorted?\n");
+      
+    for (k=0;k<nl->size ;k++)
+    {
+	  
+	  //printf("%d, %d=return value\n",k,compareNameStrings(nl->names[k].name, nl->names[k+1].name) );
           printf("%s %d \n", nl->names[k].name, nl->names[k].count);
+    }
     return 0;
-    /*int compare (const void * a, const void * b)
-{
-return ( *(int*)a - *(int*)b );
-}*/
+    
 }
 
 
+/*strcmp(strings a,b) = -1 0 1
+ * strcmp>0 iff a>b.
+ strcmp=0 iff a=b
+ strcmp<0 iff a<b
+ */
+int compareNameStrings(const void *a, const void *b)
+{
+  //printf("%s=a, %s=b\n",a, b);
+  return strcmp(a, b);
+}
+
+/*
+ */
 void checkTxt(namelist nl, char *filename)
 {
     FILE *f1;
