@@ -8,5 +8,6 @@ bcmp: bcmp.o
 bcmp.o: bcmp.c
 	gcc -c bcmp.c
 
+.PHONY: clean
 clean:
-	rm *.o
+	@rm  -f *.o bfix

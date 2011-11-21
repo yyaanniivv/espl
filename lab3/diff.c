@@ -3,12 +3,14 @@
 #include <string.h>
 #include "diff.h"
 
+struct diff * parsediff(char *s, struct diff *diff);
+
 int fputdiff(FILE *stream, struct diff *diff) {
     return fprintf(stream, "byte %lu -%u +%u\n",
                            diff->offset, diff->old, diff->new);
 }
 
-struct diff *parsediff(char *s, struct diff *diff) {
+struct diff * parsediff(char *s, struct diff *diff) {
     char **sp = &s;
     *sp = strchr(*sp, ' '); /* skip 'byte' */
     diff->offset = strtol(*sp, sp, 10);

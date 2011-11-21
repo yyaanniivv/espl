@@ -1,14 +1,16 @@
 
 
-all: bcmp
+all: bfix
 
-bcmp: bcmp.o diff.o
-	gcc  bcmp.o -o bcmp
+bfix: bfix.o diff.o
+	gcc  -o bfix bfix.o diff.o 
 
-bcmp.o: bcmp.c
-	gcc -c -Wall bcmp.c
+bfix.o: bfix.c
+	gcc -c -Wall bfix.c
 
-diff.o: diff.c diff.h
+diff.o: diff.c
 	gcc -c -Wall diff.c
+
+.PHONY: clean
 clean:
-	rm *.o
+	@rm  -f *.o bfix

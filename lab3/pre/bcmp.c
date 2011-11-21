@@ -1,6 +1,8 @@
  
 #include<stdio.h>
 
+//to make an outputfile called c.txt from the output stream
+//	./bcmp a.txt b.txt>c.txt
 int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
 {
     //printf("args %s \n", argv[1]);

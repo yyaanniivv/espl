@@ -17,7 +17,7 @@ canalyze.o: canalyze.c
 #rules / commands / compile
 	gcc -c -Wall canalyze.c
 
-namelist.o: namelist.c	
+namelist.o: namelist.c namelist.h
 	gcc -c -Wall namelist.c
 
 

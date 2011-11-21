@@ -6,6 +6,7 @@
 
 void checkTxt(namelist nl, char *filename);
 int compareNameStrings(const void *a, const void *b);
+
 //canalyze a.txt b.txt
 int main(int argc, char **argv ) 
 {
@@ -54,7 +55,7 @@ int main(int argc, char **argv )
     
     int k; //not sorted yet
     qsort(nl->names , nl->size, sizeof(nl->names[0]), compareNameStrings); //sorting via compareNameStrings.
-    printf("sorted?\n");
+    //printf("sorted?\n");
       
     for (k=0;k<nl->size ;k++)
     {
@@ -72,6 +73,7 @@ int main(int argc, char **argv )
  strcmp=0 iff a=b
  strcmp<0 iff a<b
  */
+
 int compareNameStrings(const void *a, const void *b)
 {
   //printf("%s=a, %s=b\n",a, b);
