@@ -23,7 +23,7 @@ int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
 	if ((x!=y) &&  (!(feof(f1)) | !(feof(f2))))
 	{      
 	  printf("byte %d -%d +%d\n",i, x, y);
-	  break;
+	  //break;
 	}
 	i++;
 

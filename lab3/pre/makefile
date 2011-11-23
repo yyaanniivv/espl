@@ -10,4 +10,4 @@ bcmp.o: bcmp.c
 
 .PHONY: clean
 clean:
-	@rm  -f *.o bfix
+	@rm  -f *.o bcmp
