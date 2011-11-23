@@ -1,0 +1,40 @@
+strcmp. char by char for 4 letters
+
+
+int main(int argc, char *argv[])
+{
+
+////////L5
+while (1)
+{
+
+int tmpA=argv[1], tmpB=argv[2]; 
+//(assuming arg is a string and tmpA tmpB get the first char)
+//focus on 1 char MOVZX
+int i=0;
+char aC=tmpA[i], bC=tmpB[i];
+
+if (CharCmp(aC, bC))
+goto L2
+else (not equal) L3 (eax has the value of eax-edx)
+{break;}
+
+///////L2
+if strcmp(bC=='0')
+{break;//EAX ==0!  }
+else
+{ 
+///////L4
+i++;
+//move one letter. pointer math +1.
+aC=tmpA[1];
+bC=tmpB[1];
+start again
+}
+}
+
+
+
+////////L3
+//end of funmc. return eax
+}
