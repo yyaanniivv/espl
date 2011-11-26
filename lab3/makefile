@@ -13,4 +13,4 @@ diff.o: diff.c
 
 .PHONY: clean
 clean:
-	@rm  -f *.o bfix
+	@rm  -f *.o bfix dir
