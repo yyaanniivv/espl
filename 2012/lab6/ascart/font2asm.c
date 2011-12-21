@@ -3,38 +3,44 @@
 #include <string.h>
 #include "font.h"
 
-void prsym(int isym) {
-	int iline;
-	char *(*symbol)[SYMBOL_HEIGHT] = &alphabet[isym];
-	for(iline = 0; iline!=SYMBOL_HEIGHT; ++iline)
-		printf("%s\n", (*symbol)[iline]);
-}
-
-
-int main(int argc, char **argv) {
+void shapes() {
 	int isym, iline;
-	int offset;
 
-	printf("section .data\n\tglobal alphabet\n\n");
-	/* first print the data */
+	printf("; letter shapes\n");
 	printf("a");
 	for(isym = 0; alphabet[isym][0]; ++isym) {
 		for(iline=0; iline!=SYMBOL_HEIGHT; ++iline) {
 			printf("\tdb \"%s\",0\n", alphabet[isym][iline]);
 		}
 	}
-	/* then the array of pointers */
-	printf("\nalphabet:\n");
+}
+
+void pointers() {
+	int isym, iline;
+	int offset;
+
+	printf(";; automatically generated self-bootstrapped font\n\n");
+
+	printf("; the font itself, pointers to each line of each letter\n");
+	printf("alphabet:\n");
 	offset = 0;
 	for(isym = 0; alphabet[isym][0]; ++isym) {
 		printf("\tdd");
 		for(iline=0; iline!=SYMBOL_HEIGHT; ++iline) {
 			printf(" a+%d,", offset);
-			offset += strlen(alphabet[isym][iline])+1;
+			offset += strlen(alphabet[isym][iline])+1; /* +1 is for 0 */
 		}
 		printf("\n");
 	}
-	printf("\tdd 0");
+	printf("\tdd 0"); /* NULL pointer at the end */
+}
+
+
+int main(int argc, char **argv) {
+	printf("section .data\n\tglobal alphabet\n\n");
+	shapes();
+	printf("\n");
+	pointers();
 
 	return 0;
 }
