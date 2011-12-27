@@ -26,4 +26,4 @@ main.o: main.c
 
 
 clean:
-	@rm -f *.o ahalan
+	@rm -f *.o ahalan start

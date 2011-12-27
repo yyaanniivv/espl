@@ -1,24 +1,19 @@
- 
+.PHONY: all clean
+
+all: bcmp
+
 %.o: %.asm
 	nasm -g -f elf -o $@ $<
 
-%.o: %.c
-	gcc -m32 -g -nostdlib -fno-stack-protector -c -o $@ $<
+bcmp: bcmp.o asmwrite.o
+	gcc -m32 -o $@ $^
 
-.PHONY: clean all
-
-all: ahalan
-
-ahalan: start.o main.o ahalan.o asmwrite.o puts.o
-	ld -melf_i386 -g -o $@ $^
-
-
+bcmp.o: bcmp.c
+	gcc -m32 -c bcmp.c
 asmwrite.o: asmwrite.asm
-ahalan.o: ahalan.asm
-start.o: start.asm
-puts.o: puts.c asmwrite.asm
-#	gcc -m32 -g -nostdlib -fno-stack-protector -c -o $@ $<
-main.o: main.c
+
+#	gcc -m32 -c atod.c
+#	gcc -c -m32 -S -masm=intel atod.c
 
 clean:
-	@rm -f *.o ahalan
+	@rm -f *.o bcmp

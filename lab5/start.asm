@@ -4,7 +4,7 @@ global _start
 extern main
 
 _start:
-  mov edx, esp ; TOS location
+  mov edx, esp ; TOS - TopOfSstack location
   mov edx, [edx+4] ; [argv argc [main] TOS -> [ argv argc &argv &argc
   push edx
   mov edx, [edx+4]

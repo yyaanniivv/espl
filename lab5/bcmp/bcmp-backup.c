@@ -15,18 +15,15 @@ int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
     int i=0;
     if ((f1!=-1 || f2!=-1)  && argc==3)
     {
-      char  x[2], y[2]; //mini buffers
+      char  x='a', y='a'; //mini buffers
       //int i=0, j=0;
       //while (f1 !=EOF)
-      x[1]=0;
-      y[1]=0;
-      asmread(f2,y,1);
-      asmread(f1,x,1);
-      while (x[0]!=EOF | y[0]!=EOF ) //end of file!?! 
+      
+      while (!(feof(&f1)) | !(feof(&f2))) //end of file!?! 
       {
-	
-	printf( " %s %s  " ,x,y);
-	if (x[0]!=y[0])
+	fread(&x, 1, 1,&f1);   //TODO asmread
+	fread(&y, 1, 1,&f2);   //TODO asmread
+	if ((x!=y) &&  (!(feof(&f1)) | !(feof(&f2))))
 	{      
 /*	  char msg[80];
 	  strcpy (msg,"byte ");	  
@@ -37,16 +34,15 @@ int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
 	  asmwrite(1,msg,length(msg));
 */
 
-	//  printf("byte %d -%s +%s\n",i, x, y); // TODO asmwrite
+	  printf("byte %d -%d +%d\n",i, x, y); // TODO asmwrite
 	  //break;
 	}
 	i++;
-	asmread(f2,y,1);
-	asmread(f1,x,1);
+
       }
       
-  //  fclose(&f1) ; //TODO asmopen
-  //  fclose(&f2) ; //TODO asmopen
+    fclose(&f1) ; //TODO asmopen
+    fclose(&f2) ; //TODO asmopen
     }
     else {
       char* errmsg="error loading files via args\n";
