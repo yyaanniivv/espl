@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+int main (int argc, )
+{
+
+
+if(fork())  //fork != 0
+{
+
+//PARENT wait(); 
+}
+else { 
+//CHILD exec
+}
+
+}

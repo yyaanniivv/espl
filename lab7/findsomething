@@ -1,0 +1,22 @@
+ 
+#! /bin/sh
+
+#! chmod +x findsomething
+
+#!x=` ls`
+#!echo $x
+
+
+#!x=`find $1 -name "*.c" | xargs grep  -l main > out.txt ` doesnt work because of the output file.
+x=`find $1 -name "*.c" | xargs grep  -l main`
+
+#! echo $x
+
+for i in $x; do
+ grep -A 6 -n main $i
+echo =================== 
+done
+
+
+
+

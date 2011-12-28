@@ -1,0 +1,11 @@
+
+all:runprog
+
+runprog: runprog.o
+	gcc -o runprog.o -Wall
+
+runprog.o: runprog.c
+	gcc -c runprog.c -Wall
+
+clean:
+	@rm -f runprog *.o
