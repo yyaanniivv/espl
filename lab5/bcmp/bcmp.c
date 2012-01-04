@@ -2,6 +2,24 @@
 #include<stdio.h>
 #include<string.h>
 #include <stdlib.h>
+
+
+void digitPrint(int input) {
+  int index;
+  char buf[1];
+  if (input<10) {
+    buf[0]=input+'0';
+    asmwrite(1,buf,1);
+  }
+  else {
+    int new=input/10;
+    digitPrint(new);
+    buf[0]=(input % 10)+'0';
+    asmwrite(1,buf,1);
+  }
+  
+}
+    
 //to make an outputfile called c.txt from the output stream
 //	./bcmp a.txt b.txt>c.txt
 int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
@@ -22,10 +40,10 @@ int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
       y[1]=0;
       asmread(f2,y,1);
       asmread(f1,x,1);
-      while (x[0]!=EOF | y[0]!=EOF ) //end of file!?! 
+      while (x[0]!='\0' & y[0]!=EOF & i<5) //end of file!?! 
       {
 	
-	printf( " %s %s  " ,x,y);
+	//printf( " %s %s  " ,x,y);
 	if (x[0]!=y[0])
 	{      
 /*	  char msg[80];
@@ -36,7 +54,14 @@ int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
 	  strcat (msg," -\n");
 	  asmwrite(1,msg,length(msg));
 */
-
+	  asmwrite(1,"byte ",5);
+	  digitPrint(i);
+	  asmwrite(1," -",2);
+	  asmwrite(1,x,1);
+	  asmwrite(1," +",2);
+	  asmwrite(1,y,1);
+	  asmwrite(1,"\n",1);
+	  
 	//  printf("byte %d -%s +%s\n",i, x, y); // TODO asmwrite
 	  //break;
 	}
@@ -52,6 +77,7 @@ int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
       char* errmsg="error loading files via args\n";
       asmwrite(1,errmsg, length(errmsg)); // %s , %s argv[1], argv[2]  // TODO asmwrite
   }
+
     return 0;
 }
 
@@ -61,3 +87,6 @@ char *t = s;
 while(*t) ++t;
 return t-s;
 }
+
+
+  

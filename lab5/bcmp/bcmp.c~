@@ -1,39 +1,95 @@
- 
+ //TODO asmread asmwrite asmopen asmclose
 #include<stdio.h>
+#include<string.h>
+#include <stdlib.h>
 
+
+void digitPrint(int input) {
+  int index;
+  char buf[1];
+  if (input<10) {
+    buf[0]=input+'0';
+    asmwrite(1,buf,1);
+  }
+  else {
+    int new=input/10;
+    digitPrint(new);
+    buf[0]=(input % 10)+'0';
+    asmwrite(1,buf,1);
+  }
+  
+}
+    
 //to make an outputfile called c.txt from the output stream
 //	./bcmp a.txt b.txt>c.txt
 int main(int argc, char *argv[] ) //int main ( int argc, char *argv[] )
 {
+  int gg=123;
+  digitPrint(gg);
+
     //printf("args %s \n", argv[1]);
-    FILE *f1, *f2;
-    f1 = fopen(argv[1],"r"); 
-    f2 = fopen(argv[2],"r");
+    int f1, f2;
+    //f1 = fopen(argv[1],"r"); //TODO asmopen
+    //f2 = fopen(argv[2],"r"); //TODO asmopen
+    f1 = asmopen(argv[1],444);
+    f2 = asmopen(argv[2],444);
     int i=0;
-    if ((f1!=NULL || f2!=NULL)  && argc==3)
+    if ((f1!=-1 || f2!=-1)  && argc==3)
     {
-      char  x='a', y='a'; //mini buffers
+      char  x[2], y[2]; //mini buffers
       //int i=0, j=0;
       //while (f1 !=EOF)
-      
-      while (!(feof(f1)) | !(feof(f2))) //end of file!?! 
+      x[1]=0;
+      y[1]=0;
+      asmread(f2,y,1);
+      asmread(f1,x,1);
+      while (x[0]!='\0' & y[0]!=EOF & i<5) //end of file!?! 
       {
-	fread(&x, 1, 1,f1);
-	fread(&y, 1, 1,f2);
-	if ((x!=y) &&  (!(feof(f1)) | !(feof(f2))))
+	
+	//printf( " %s %s  " ,x,y);
+	if (x[0]!=y[0])
 	{      
-	  printf("byte %d -%d +%d\n",i, x, y); // TODO asmwrite
+/*	  char msg[80];
+	  strcpy (msg,"byte ");	  
+	  char * num = malloc(8*sizeof(i));
+	  itoa(i,num,10);
+	  strcat (msg, num);
+	  strcat (msg," -\n");
+	  asmwrite(1,msg,length(msg));
+*/
+	  asmwrite(1,"byte ",5);
+	  digitPrint(i);
+	  asmwrite(1," -",2);
+	  asmwrite(1,x,1);
+	  asmwrite(1," +",2);
+	  asmwrite(1,y,1);
+	  asmwrite(1,"\n",1);
+	  
+	//  printf("byte %d -%s +%s\n",i, x, y); // TODO asmwrite
 	  //break;
 	}
 	i++;
-
+	asmread(f2,y,1);
+	asmread(f1,x,1);
       }
       
-    fclose(f1) ;
-    fclose(f2) ;  
+  //  fclose(&f1) ; //TODO asmopen
+  //  fclose(&f2) ; //TODO asmopen
     }
     else {
-      printf("error loading files via args\nargc=  %d \n", argc); // %s , %s argv[1], argv[2]  // TODO asmwrite
+      char* errmsg="error loading files via args\n";
+      asmwrite(1,errmsg, length(errmsg)); // %s , %s argv[1], argv[2]  // TODO asmwrite
   }
+
     return 0;
 }
+
+int length(char *s) 
+{
+char *t = s;
+while(*t) ++t;
+return t-s;
+}
+
+
+  
