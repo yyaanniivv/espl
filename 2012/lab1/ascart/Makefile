@@ -4,8 +4,8 @@
 all: prsym ascart
 
 OBJS=font.o
-CFLAGS=-g -O -Wall
-LDFLAGS=
+CFLAGS=-m32 -g -O -Wall
+LDFLAGS=-g -m32
 
 %.o: %.c
 	gcc $(CFLAGS) -c $<
