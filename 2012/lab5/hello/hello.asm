@@ -1,9 +1,10 @@
 section	.text
     global _start			;must be declared for linker (ld)
+	extern length			;length is implemented in length.c
 
 _start:					;tell linker entry point
-
-	mov	edx,len	;message length
+	;; TODO: add call to function `length' here
+	;; (you'll need 3 assembly instructions)
 	mov	ecx,msg	;message to write
 	mov	ebx,1	;file descriptor (stdout)
 	mov	eax,4	;system call number (sys_write)
@@ -14,5 +15,4 @@ _start:					;tell linker entry point
 
 section	.data
 
-msg	db	'Hello world!',0xa ;our dear string
-len	equ	$ - msg	       	 ;length of our dear string
+msg	db	'Hello, world!',0xa,0	;our dear string
